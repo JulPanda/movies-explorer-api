@@ -4,8 +4,6 @@
 
 ## Ссылки на проект
 
-IP <158.160.28.138>
-
-Frontend https://movies.jul.nomoreparties.co
+IP 158.160.28.138
 
 Backend https://api.movies.jul.nomoreparties.co

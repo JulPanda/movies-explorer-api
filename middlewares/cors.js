@@ -1,7 +1,9 @@
 // Массив доменов, с которых разрешены кросс-доменные запросы
 const allowedCors = [
-  'https://jul-mesto.nomoreparties.co',
-  'http://jul-mesto.nomoreparties.co',
+  'https://api.movies.jul.nomoreparties.co',
+  'http://api.movies.jul.nomoreparties.co',
+  'https://movies.jul.nomoreparties.co',
+  'http://movies.jul.nomoreparties.co',
   // 'http://localhost:3001',
   'https://localhost:3000',
 ];
