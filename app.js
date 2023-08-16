@@ -32,7 +32,6 @@ app.use(cors);
 
 app.use(requestLogger); // подключаем логгер запросов
 
-
 app.use(router);
 
 app.use(errorLogger); // подключаем логгер ошибок
