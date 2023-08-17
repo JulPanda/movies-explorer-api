@@ -5,14 +5,13 @@ const NotFoundError = require('../errors/notFoundError');
 const CastError = require('../errors/incorrectDataError');
 const ForbiddenError = require('../errors/forbiddenError');
 
+const { STATUS_OK, STATUS_CREATED } = require('../utils/constants');
 const {
-  STATUS_OK,
-  STATUS_CREATED,
   MESSAGE_INCORRECT_ID,
   MESSAGE_INCORRECT_MOVIE,
-  MESSAGE_FOBBIDEN,
+  MESSAGE_FORBIDDEN,
   MESSAGE_NOTFOUND_MOVIE,
-} = require('../utils/constants');
+} = require('../utils/errorConstants');
 
 const createMovie = (req, res, next) => {
   const {
@@ -55,7 +54,7 @@ const createMovie = (req, res, next) => {
 };
 
 const getMovies = (req, res, next) => {
-  Movie.find({})
+  Movie.find({ owner: req.user._id })
     .then((movies) => {
       res.status(STATUS_OK).send(movies);
     })
@@ -67,9 +66,9 @@ const deleteMovieById = (req, res, next) => {
     .orFail()
     .then((movie) => {
       if (String(movie.owner) !== String(req.user._id)) {
-        next(new ForbiddenError(MESSAGE_FOBBIDEN));
+        throw next(new ForbiddenError(MESSAGE_FORBIDDEN));
       } else {
-        Movie.deleteOne(movie)
+        return Movie.deleteOne(movie)
           .then(() => {
             res.status(STATUS_OK).send(movie);
           });

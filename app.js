@@ -13,6 +13,7 @@ const NotFoundError = require('./errors/notFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT, DB_URL } = require('./utils/config');
+const { MESSAGE_BADURL } = require('./utils/errorConstants');
 
 const app = express();
 
@@ -34,11 +35,11 @@ app.use(requestLogger); // подключаем логгер запросов
 
 app.use(router);
 
-app.use(errorLogger); // подключаем логгер ошибок
 app.use('*', (req, res, next) => {
-  next(new NotFoundError('Запрашиваемый адрес не существует'));
+  next(new NotFoundError(MESSAGE_BADURL));
 });
 
+app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors());
 app.use(errorHandler);
 

@@ -1,4 +1,4 @@
-const { ERROR_INCORRECT_DATA } = require('../utils/constants');
+const { ERROR_INCORRECT_DATA } = require('../utils/errorConstants');
 
 class CastError extends Error {
   constructor(message) {

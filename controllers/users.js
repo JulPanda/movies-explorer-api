@@ -7,9 +7,8 @@ const CastError = require('../errors/incorrectDataError');
 const UnauthorizedError = require('../errors/unauthorizedError');
 const ConflictError = require('../errors/conflictError');
 
+const { STATUS_OK, STATUS_CREATED } = require('../utils/constants');
 const {
-  STATUS_OK,
-  STATUS_CREATED,
   MESSAGE_INCORRECT_DATA,
   MESSAGE_CONFLICT,
   MESSAGE_NOT_FOUND,
@@ -17,7 +16,7 @@ const {
   MESSAGE_INPUT_DATA,
   MESSAGE_UNAUTHORIZED_DATA,
   MESSAGE_LOGOUT,
-} = require('../utils/constants');
+} = require('../utils/errorConstants');
 
 const { NODE_ENV, JWT_SECRET } = require('../utils/config');
 
@@ -78,6 +77,8 @@ const updateUser = (req, res, next) => {
         next(new NotFoundError(MESSAGE_NOT_FOUND));
       } else if (err instanceof mongoose.Error.ValidationError) {
         next(new CastError(MESSAGE_INCORRECT_DATA));
+      } else if (err.code === 11000) {
+        next(new ConflictError(MESSAGE_CONFLICT));
       } else {
         next(err);
       }
