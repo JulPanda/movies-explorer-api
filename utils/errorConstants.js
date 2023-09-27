@@ -17,6 +17,7 @@ const MESSAGE_FORBIDDEN = 'Нельзя удалять чужой фильм';
 const MESSAGE_NOTFOUND_MOVIE = 'Запрашиваемый фильм не найден';
 const MESSAGE_UNAUTHORIZID = 'Необходима авторизация';
 const MESSAGE_BADURL = 'Запрашиваемый адрес не существует';
+const MESSAGE_SERVER = 'Ошибка сервера';
 
 module.exports = {
   ERROR_NOT_FOUND,
@@ -37,4 +38,5 @@ module.exports = {
   MESSAGE_NOTFOUND_MOVIE,
   MESSAGE_UNAUTHORIZID,
   MESSAGE_BADURL,
+  MESSAGE_SERVER,
 };

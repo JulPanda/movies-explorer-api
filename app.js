@@ -7,7 +7,8 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
-const { cors } = require('./middlewares/cors');
+const cors = require('cors');
+// const { cors } = require('./middlewares/cors');
 const { limiter } = require('./middlewares/rateLimiter');
 const NotFoundError = require('./errors/notFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -29,8 +30,22 @@ app.use(helmet());
 app.use(limiter);
 
 app.use(cookieParser());
-app.use(cors);
-
+// app.use(cors);
+app.use(
+  cors({
+    origin: [
+      'http://movies.jul.nomoreparties.co',
+      'https://movies.jul.nomoreparties.co',
+      'http://localhost:3000',
+      'http://localhost:3001',
+      // 'https://api.movies.jul.nomoreparties.co',
+      // 'https://localhost:3000',
+      // 'https://localhost:3001',
+      // 'http://api.movies.jul.nomoreparties.co',
+    ],
+    credentials: true,
+  }),
+);
 app.use(requestLogger); // подключаем логгер запросов
 
 app.use(router);
